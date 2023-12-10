@@ -202,27 +202,36 @@ public class Calculation {
 
     BigInteger calculate(HashMap<String, BigInteger> var, String val) {
         val = val.trim();
-        if (val.matches("\\d+")) {
-            System.out.println(val);
-            return new BigInteger(val);
-        } else if (val.matches("[a-zA-Z]+")) {
-            System.out.println(getNumber(var, val));
-            return new BigInteger(String.valueOf(getNumber(var, val)));
-        }else {
-            val = makeStringCorrect(val);
-            if (val.length() == 0 || val.contains("**") || val.contains("//")) {
-                System.out.println("Invalid expression");
-                return null;
-            } else {
-                String res = infixToPostfix(val);
-                //System.out.println(res);
-                if (!"Invalid expression".equals(res)){
-                    System.out.println(evaluatePostfix(var, res));
-                    return new BigInteger(String.valueOf(evaluatePostfix(var, res)));
+        if (val.matches("[\\s\\w\\d\\+\\-\\*\\/\\(\\)]*")) {
+            if (val.matches("\\d+")) {
+                System.out.println(val);
+                return new BigInteger(val);
+            } else if (val.matches("[a-zA-Z]+")) {
+                if (getNumber(var, val) != null) {
+                    System.out.println(getNumber(var, val));
+                    return new BigInteger(String.valueOf(getNumber(var, val)));
                 } else {
                     return null;
                 }
+            } else {
+                val = makeStringCorrect(val);
+                if (val.length() == 0 || val.contains("**") || val.contains("//")) {
+                    System.out.println("Invalid expression");
+                    return null;
+                } else {
+                    String res = infixToPostfix(val);
+                    if (!"Invalid expression".equals(res)){
+                        System.out.println(evaluatePostfix(var, res));
+                        return new BigInteger(String.valueOf(evaluatePostfix(var, res)));
+                    } else {
+                        return null;
+                    }
+                }
             }
+        } else {
+            System.out.println("Invalid identifier");
+            return null;
         }
+
     }
 }

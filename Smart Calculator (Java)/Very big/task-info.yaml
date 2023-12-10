@@ -333,6 +333,43 @@ files:
         }
     }
   learner_created: true
+- name: src/calculator/Assignment.java
+  visible: true
+  text: |
+    package calculator;
+
+    import java.util.HashMap;
+
+    public class Assignment {
+
+        HashMap<String, Integer> assign(HashMap<String, Integer> var, String val) {
+            String[] arr = val.split("=");
+            if (arr.length < 3) {
+                if (arr[0].trim().matches("[a-zA-Z]+")) {
+                    if (arr[1].trim().matches("\\d+")) {
+                        var.put(arr[0].trim(), Integer.parseInt(arr[1].trim()));
+                    } else if (arr[1].trim().matches("[a-zA-Z]+")) {
+                        if (var.containsKey(arr[1].trim())){
+                            var.put(arr[0].trim(), var.get(arr[1].trim()));
+                        } else {
+                            System.out.println("Unknown variable");
+                        }
+                    } else {
+                        System.out.println("Invalid assignment");
+                    }
+                } else {
+                    System.out.println("Invalid identifier");
+                }
+            } else {
+                System.out.println("Invalid assignment");
+            }
+            return var;
+        }
+    }
+  learner_created: true
+- name: test/calculator/CalculationTest.java
+  visible: true
+  learner_created: true
 - name: src/calculator/Calculation.java
   visible: true
   text: |
@@ -555,41 +592,10 @@ files:
         }
     }
   learner_created: true
-- name: src/calculator/Assignment.java
+- name: test/calculator/AssignmentTest.java
   visible: true
-  text: |
-    package calculator;
-
-    import java.util.HashMap;
-
-    public class Assignment {
-
-        HashMap<String, Integer> assign(HashMap<String, Integer> var, String val) {
-            String[] arr = val.split("=");
-            if (arr.length < 3) {
-                if (arr[0].trim().matches("[a-zA-Z]+")) {
-                    if (arr[1].trim().matches("\\d+")) {
-                        var.put(arr[0].trim(), Integer.parseInt(arr[1].trim()));
-                    } else if (arr[1].trim().matches("[a-zA-Z]+")) {
-                        if (var.containsKey(arr[1].trim())){
-                            var.put(arr[0].trim(), var.get(arr[1].trim()));
-                        } else {
-                            System.out.println("Unknown variable");
-                        }
-                    } else {
-                        System.out.println("Invalid assignment");
-                    }
-                } else {
-                    System.out.println("Invalid identifier");
-                }
-            } else {
-                System.out.println("Invalid assignment");
-            }
-            return var;
-        }
-    }
   learner_created: true
-- name: test/calculator/CalculationTest.java
+- name: test/calculator/CommandTest.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5323#comment

@@ -7,7 +7,7 @@ public class Assignment {
 
     HashMap<String, BigInteger> assign(HashMap<String, BigInteger> var, String val) {
         String[] arr = val.split("=");
-        if (arr.length < 3) {
+        if (arr.length > 1) {
             if (arr[0].trim().matches("[a-zA-Z]+")) {
                 if (arr[1].trim().matches("\\d+")) {
                     var.put(arr[0].trim(), new BigInteger(arr[1].trim()));

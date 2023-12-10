@@ -47,7 +47,15 @@ subprojects {
         outputs.upToDateWhen { false }
     }
 
-	
+    test {
+        useJUnitPlatform()
+    }
+    test {
+
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
 
     compileJava.options.encoding = 'utf-8'
     tasks.withType(JavaCompile) {
@@ -60,9 +68,7 @@ project(':util') {
         implementation 'com.github.hyperskill:hs-test:release-SNAPSHOT'
     }
 }
-test {
-    useJUnitPlatform()
-}
+
 
 configure(subprojects.findAll {it.name != 'util'}) {
     dependencies {
